@@ -1,3 +1,4 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
@@ -41,33 +42,31 @@ class _IntroSliderScreenState extends State<IntroSliderScreen> {
                     children: [
                       buildPage(
                         image: 'assets/images/slider-1.png',
-                        title: "Quick SOS Alerts at Your Fingertips",
+                        title: "slider_one_title".tr(),
                         description:
-                            "Send emergency alerts instantly to your trusted contacts with just a tap or voice command.",
+                            "slider_one_body".tr(),
                         screenHieght: screenHieght,
                         minHeight: minHeight,
                       ),
                       buildPage(
                         image: 'assets/images/slider-2.png',
-                        title: "Real-Time Location Sharing",
+                        title:"slider_two_title".tr(),
                         description:
-                            "Share your live location even without an internet connection to help rescuers find you faster.",
+                          "slider_two_body".tr(),
                         screenHieght: screenHieght,
                         minHeight: minHeight,
                       ),
                       buildPage(
                         image: 'assets/images/slider-3.png',
-                        title: "Breaking Language Barriers",
+                        title: "slider_three_title".tr(),
                         description:
-                            "Access life-saving features in the language you're comfortable with.",
+                           "slider_three_body".tr(),
                         screenHieght: screenHieght,
                         minHeight: minHeight,
                       ),
                     ],
                   ),
                 ),
-
-                // Navigation Row
                 Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 16),

@@ -13,7 +13,7 @@
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundleName</key>
-		<string>personal_sos_app</string>
+		<string>Emergency SOS</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
@@ -47,5 +47,15 @@
 		<true/>
 		<key>UIStatusBarHidden</key>
 		<false/>
+		<key>CFBundleLocalizations</key>
+		<array>
+			<string>en</string>
+			<string>nb</string>
+		</array>
+		<key>NSLocationWhenInUseUsageDescription</key>
+		<string>We need your location to provide SOS services.</string>
+		<key>NSLocationAlwaysUsageDescription</key>
+		<string>We need your location to send emergency alerts.</string>
+
 	</dict>
 </plist>

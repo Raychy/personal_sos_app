@@ -1,0 +1,70 @@
+{
+    "university": "Ahmadu Bello University",
+    "emergency_sos_tips": [
+      {
+        "title": "General Emergency",
+        "tips": [
+          "Stay calm and assess the situation before taking action.",
+          "Call campus security or emergency services immediately.",
+          "Avoid spreading panic and follow official safety instructions."
+        ]
+      },
+      {
+        "title": "Medical Emergency",
+        "tips": [
+          "Contact the ABU Medical Center or the nearest hospital.",
+          "If someone is unconscious, check their breathing and pulse before performing CPR if trained.",
+          "Do not move an injured person unless they are in immediate danger."
+        ]
+      },
+      {
+        "title": "Fire Outbreak",
+        "tips": [
+          "Activate the nearest fire alarm and call emergency services.",
+          "Evacuate the building using the nearest exit; do not use elevators.",
+          "Cover your nose with a cloth to avoid inhaling smoke."
+        ]
+      },
+      {
+        "title": "Security Threat",
+        "tips": [
+          "If you notice suspicious activity, report it to campus security immediately.",
+          "Avoid walking alone at night; use designated safe routes.",
+          "Keep personal belongings secure and do not share sensitive information with strangers."
+        ]
+      },
+      {
+        "title": "Natural Disaster (Floods, Earthquake, etc.)",
+        "tips": [
+          "Follow official university instructions and seek shelter if needed.",
+          "Stay away from windows and heavy objects that might fall.",
+          "If outside, move to an open area away from buildings and trees."
+        ]
+      },
+      {
+        "title": "Sexual Harassment or Assault",
+        "tips": [
+          "Report incidents to the university’s student affairs office or security.",
+          "Seek support from trusted friends, family, or a counselor.",
+          "Know your rights and take legal action if necessary."
+        ]
+      },
+      {
+        "title": "Transportation Safety",
+        "tips": [
+          "Use only trusted campus shuttles or registered transportation services.",
+          "Avoid entering unregistered vehicles, especially at night.",
+          "Be alert and aware of your surroundings while commuting."
+        ]
+      },
+      {
+        "title": "Mental Health Crisis",
+        "tips": [
+          "If you or someone you know is experiencing distress, reach out to a counselor.",
+          "Avoid isolation and talk to a trusted friend or university support group.",
+          "Engage in relaxation techniques such as deep breathing or meditation."
+        ]
+      }
+    ]
+  }
+  

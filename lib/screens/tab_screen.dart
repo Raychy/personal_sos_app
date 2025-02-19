@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:personal_sos_app/screens/tips_screen.dart';
 import 'package:personal_sos_app/widgets/all_contact.dart';
 import 'package:personal_sos_app/widgets/home_widget.dart';
 import 'package:personal_sos_app/utils/colors.dart';
 import 'package:personal_sos_app/widgets/new_contact.dart';
-import 'package:personal_sos_app/widgets/settings_widget.dart';
 
 class TabScreen extends StatefulWidget {
   static const routeName = "/tab-screen";
@@ -21,7 +21,8 @@ class _TabScreenState extends State<TabScreen> {
     HomeWidget(),
     NewContactWidget(),
     AllContactWidget(),
-    SettingsWidget(),
+    // SettingsWidget(),
+    EmergencyScreen()
   ];
 
   void _onItemTapped(int index) {
@@ -29,7 +30,6 @@ class _TabScreenState extends State<TabScreen> {
       _selectedIndex = index;
     });
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(

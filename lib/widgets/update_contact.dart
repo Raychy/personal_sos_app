@@ -1,21 +1,35 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:personal_sos_app/services/model/contact_model.dart';
 import 'package:personal_sos_app/services/providers/contact_provider.dart';
 import 'package:personal_sos_app/utils/colors.dart';
 import 'package:provider/provider.dart';
 
-class NewContactWidget extends StatefulWidget {
-  const NewContactWidget({super.key});
+class UpdateContactWidget extends StatefulWidget {
+  final ContactModel contact;
+  const UpdateContactWidget({super.key, required this.contact});
 
   @override
-  State<NewContactWidget> createState() => _NewContactWidgetState();
+  State<UpdateContactWidget> createState() => _UpdateContactWidgetState();
 }
 
-class _NewContactWidgetState extends State<NewContactWidget> {
-  TextEditingController firstNameTextController = TextEditingController();
-  TextEditingController lastNameTextController = TextEditingController();
-  TextEditingController phoneTextController = TextEditingController();
+class _UpdateContactWidgetState extends State<UpdateContactWidget> {
+  late TextEditingController firstNameTextController;
+  late TextEditingController lastNameTextController;
+  late TextEditingController phoneTextController;
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    super.initState();
+    firstNameTextController =
+        TextEditingController(text: widget.contact.firstName);
+    lastNameTextController =
+        TextEditingController(text: widget.contact.lastName);
+    phoneTextController =
+        TextEditingController(text: widget.contact.phoneNumber);
+  }
+
   @override
   Widget build(BuildContext context) {
     const minHeight = 640;
@@ -23,37 +37,21 @@ class _NewContactWidgetState extends State<NewContactWidget> {
     final kSize = MediaQuery.of(context).size;
     final theme = Theme.of(context).textTheme;
     final contactProvider = Provider.of<ContactProvider>(context);
-    return Column(
-      children: [
-        const SizedBox(
-          height: 20,
-        ),
-        Text(
-          "new_contact".tr(),
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(
-                color: const Color(0xFF191D3E),
-              ),
-          textAlign: TextAlign.center,
-        ),
-        const SizedBox(
-          height: 10,
-        ),
-        Container(
-          margin: const EdgeInsets.only(top: 20),
-          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 30),
-          decoration: BoxDecoration(
-            color: Colors.white,
-            borderRadius: BorderRadius.circular(10),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.grey.withOpacity(0.2),
-                spreadRadius: 4,
-                blurRadius: 4,
-                offset: const Offset(0, 3),
-              ),
-            ],
+    return AlertDialog(
+      backgroundColor: Colors.white,
+      title: Text(
+        "Edit Contact",
+        style: Theme.of(context).textTheme.displayMedium?.copyWith(
+              color: const Color(0xFF191D3E),
+            ),
+        textAlign: TextAlign.center,
+      ),
+      content: Column(
+        children: [
+          const SizedBox(
+            height: 30,
           ),
-          child: Form(
+          Form(
             key: _formKey,
             child: SingleChildScrollView(
               child: Column(
@@ -94,7 +92,8 @@ class _NewContactWidgetState extends State<NewContactWidget> {
                     height: 20,
                   ),
                   contactProvider.isSaving
-                      ? const Center(child:  CircularProgressIndicator.adaptive())
+                      ? const Center(
+                          child: CircularProgressIndicator.adaptive())
                       : _buildButtonOnSubmit(
                           kSize,
                           context,
@@ -103,20 +102,17 @@ class _NewContactWidgetState extends State<NewContactWidget> {
                           minHeight,
                           () async {
                             // Save the contact
-                            await contactProvider.storeContactList(
+                            await contactProvider.updateContact(
+                              widget.contact.id,
                               firstNameTextController.text.trim(),
                               lastNameTextController.text.trim(),
                               phoneTextController.text.trim(),
                             );
-                  
+
                             if (contactProvider.successMessage.isNotEmpty) {
                               showSuccessDialog(contactProvider.successMessage);
-                  
-                              // Clear input fields after success
-                              firstNameTextController.clear();
-                              lastNameTextController.clear();
-                              phoneTextController.clear();
-                            } else if (contactProvider.failedMessage.isNotEmpty) {
+                            } else if (contactProvider
+                                .failedMessage.isNotEmpty) {
                               showFailedDialog(contactProvider.failedMessage);
                             }
                           },
@@ -125,9 +121,9 @@ class _NewContactWidgetState extends State<NewContactWidget> {
                 ],
               ),
             ),
-          ),
-        )
-      ],
+          )
+        ],
+      ),
     );
   }
 
@@ -281,7 +277,7 @@ class _NewContactWidgetState extends State<NewContactWidget> {
           controller: firstNameTextController,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
-                textCapitalization:TextCapitalization.sentences,
+          textCapitalization: TextCapitalization.sentences,
           decoration: InputDecoration(
             enabled: !loading,
             enabledBorder: OutlineInputBorder(
@@ -317,7 +313,7 @@ class _NewContactWidgetState extends State<NewContactWidget> {
             });
           },
           controller: lastNameTextController,
-                textCapitalization:TextCapitalization.sentences,
+          textCapitalization: TextCapitalization.sentences,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
           decoration: InputDecoration(

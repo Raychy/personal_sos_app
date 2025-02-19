@@ -1,6 +1,10 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:personal_sos_app/utils/colors.dart';
+import 'package:provider/provider.dart';
+
+import '../services/providers/user_provider.dart';
 
 class StudentFormWidget extends StatefulWidget {
   const StudentFormWidget({super.key});
@@ -11,18 +15,21 @@ class StudentFormWidget extends StatefulWidget {
 
 class _StudentFormWidgetState extends State<StudentFormWidget> {
   TextEditingController matricNoTextController = TextEditingController();
+  TextEditingController usernameTextController = TextEditingController();
   TextEditingController langTextController =
       TextEditingController(text: "English");
   final _formKey = GlobalKey<FormState>();
 
   List languages = [
-    {"id": 1, "name": "English"},
-    {"id": 2, "name": "Yoruba"},
-    {"id": 3, "name": "Igbo"},
-    {"id": 4, "name": "Hausa"},
+    {"id": 'en', "name": "English"},
+    {"id": 'yo', "name": "Yoruba"},
+    {"id": 'ig', "name": "Igbo"},
+    {"id": 'ha', "name": "Hausa"},
   ];
+  String selectedLang = 'en';
   @override
   Widget build(BuildContext context) {
+    final userProvider = Provider.of<UserProvider>(context);
     const minHeight = 640;
     final screenHieght = MediaQuery.of(context).size.height;
     final kSize = MediaQuery.of(context).size;
@@ -31,13 +38,13 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
     return ListView(
       children: [
         Text(
-          "Welcome,",
+          "welcome".tr(),
           style: Theme.of(context).textTheme.displayMedium?.copyWith(
                 color: const Color(0xFF191D3E),
               ),
         ),
         Text(
-          "Enter your Username, Matric number and the language of your choice to continue.",
+          "form_instruction".tr(),
           style: theme.bodyMedium?.copyWith(color: const Color(0xFF191D3E)),
         ),
         Container(
@@ -92,9 +99,18 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
                   height: 20,
                 ),
                 _buildButtonOnSubmit(
-                    kSize, context, "Continue", screenHieght, minHeight,
+                    kSize, context, "continue".tr(), screenHieght, minHeight,
                     () async {
-                  Navigator.pushNamed(context, '/tab-screen');
+                  if (_formKey.currentState!.validate()) {
+                    _formKey.currentState!.save();
+                    context.setLocale(Locale(selectedLang));
+                    userProvider.storeUserDetails(
+                      matricNoTextController.text,
+                      usernameTextController.text,
+                      selectedLang,
+                    );
+                    Navigator.pushNamed(context, '/tab-screen');
+                  }
                 })
               ],
             ),
@@ -110,18 +126,19 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
       child: TextFormField(
           validator: (value) {
             if (value!.isEmpty) {
-              return "Username is Required";
+              return "form_username".tr();
             }
             return null;
           },
           onSaved: (value) {
             setState(() {
-              matricNoTextController.text = value!;
+              usernameTextController.text = value!;
             });
           },
-          controller: matricNoTextController,
+          controller: usernameTextController,
           keyboardType: TextInputType.text,
           textInputAction: TextInputAction.next,
+          textCapitalization:TextCapitalization.sentences,
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(10.0),
@@ -146,7 +163,7 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
       child: TextFormField(
           validator: (value) {
             if (value!.isEmpty) {
-              return "Matric Number is Required";
+              return "form_matric".tr();
             }
             return null;
           },
@@ -224,12 +241,13 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               Text(
-                'Select Languages',
+                "select_language".tr(),
                 style: GoogleFonts.openSans(
                     fontSize: 18, fontWeight: FontWeight.w600),
               ),
               const Divider(),
-              Expanded(
+              SizedBox(
+                height: 200, // Adjust height as per design
                 child: ListView.builder(
                   shrinkWrap: true,
                   itemCount: languages.length,
@@ -240,10 +258,12 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
                         decoration: BoxDecoration(
                             color: Colors.grey[300],
                             borderRadius: BorderRadius.circular(5)),
-                        child: Text("${languages[index]['name'][0]}L",
-                            style: theme.bodyLarge?.copyWith(
-                                color: const Color(0xFF191D3E),
-                                fontWeight: FontWeight.bold)),
+                        child: Text(
+                          "${languages[index]['name'][0]}L",
+                          style: theme.bodyLarge?.copyWith(
+                              color: const Color(0xFF191D3E),
+                              fontWeight: FontWeight.bold),
+                        ),
                       ),
                       title: Text(
                         "${languages[index]['name']}",
@@ -254,13 +274,14 @@ class _StudentFormWidgetState extends State<StudentFormWidget> {
                       onTap: () {
                         setState(() {
                           langTextController.text = languages[index]['name'];
+                          selectedLang = languages[index]['id'];
                         });
                         Navigator.pop(context);
                       },
                     );
                   },
                 ),
-              ),
+              )
             ],
           ),
         );

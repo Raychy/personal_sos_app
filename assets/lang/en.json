@@ -1,0 +1,17 @@
+{
+  "slider_one_title": "Quick SOS Alerts at Your Fingertips",
+  "slider_one_body": "Send emergency alerts instantly to your trusted contacts with just a tap or voice command.",
+  "slider_two_title": "Real-Time Location Sharing",
+  "slider_two_body": "Share your live location even without an internet connection to help rescuers find you faster.",
+  "slider_three_title": "Breaking Language Barriers",
+  "slider_three_body": "Access life-saving features in the language you're comfortable with.",
+  "welcome": "Welcome",
+  "form_instruction": "Enter your Username, Matric number and the language of your choice to continue",
+  "form_username": "Username is Required",
+  "form_matric": "Matric Number is Required",
+  "select_language": "Select Languages",
+  "continue": "Continue",
+  "contact_list": "Contact Lists",
+  "new_contact": "New Contact",
+  "save": "Save"
+}
